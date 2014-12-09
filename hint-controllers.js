@@ -24,11 +24,11 @@ function controllerDecorator($delegate) {
   return function(ctrl, locals) {
     //If the controller name is passed, find the controller than matches it
     if (typeof ctrl === 'string') {
+      sendMessageForControllerName(ctrl);
       if (nameToControllerMap[ctrl]) {
         ctrl = nameToControllerMap[ctrl];
       } else {
         //If the controller function cannot be found, check for it on the window
-        sendMessageForControllerName(ctrl);
         ctrl = window[ctrl] || ctrl;
         if (typeof ctrl === 'string') {
           throw new Error('The controller function for ' + ctrl + ' could not be found.' +
